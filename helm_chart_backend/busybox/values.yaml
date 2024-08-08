@@ -1,0 +1,26 @@
+---
+#namespace on which resources will be created.
+namespace: default
+#number of replicas.
+replicaCount: 1
+#scheduler to be used.
+scheduler: default-scheduler
+#service account to be used to run the containerized busybox application.
+serviceAccountName: busybox
+
+image:
+#Pulls image only if it is not present on the scheduled node.
+  pullPolicy: IfNotPresent
+#The registry to be sued to pull containerImage. 
+  registry: docker.io
+#Image tag
+  tag: latest
+#The http port which container would expose.
+  port: 8500
+
+service:
+#Type of kubernetes service.
+  type: LoadBalancer
+#Service port.
+  port: 80
+...

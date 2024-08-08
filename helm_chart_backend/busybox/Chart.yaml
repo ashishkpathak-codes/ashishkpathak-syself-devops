@@ -1,0 +1,7 @@
+---
+apiVersion: v2
+name: busybox
+version: 1.0.0
+description: A Helm chart for deploying busybox as a backend application
+appVersion: "1.36.1"
+...

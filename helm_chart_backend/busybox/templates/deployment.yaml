@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "busybox.fullName" . }}
+  namespace: "{{ .Release.Namespace }}"
+  labels:
+        {{ include "busybox.labels" .| nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{ include "busybox.labels" .| nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{ include "busybox.labels" .| nindent 8 }}
+    spec:
+      containers:
+      - name: {{ include "busybox.name" . }}
+        image: "{{ .Values.image.registry }}/{{ .Chart.Name }}:{{ .Values.image.tag }}"
+        imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+        ports:
+        - containerPort: {{ .Values.image.port}}
+        envFrom:
+        - configMapRef:
+            name: {{ include "busybox.fullName" . }}
+        command: ["sh", "-c"]
+        args: ["echo ${APP_NAME}:${APP_ENV} > /var/www/index.html && httpd -f -p {{ .Values.image.port }} -h /var/www/"]
+      schedulerName: "{{ .Values.scheduler }}"
+      serviceAccountName: "{{ .Values.serviceAccountName}}"
+...
+
