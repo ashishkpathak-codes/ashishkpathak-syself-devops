@@ -23,4 +23,8 @@ service:
   type: LoadBalancer
 #Service port.
   port: 80
+
+tests:
+#Number of retries after which the job will be considered as failed.
+  backoffLimit: 4
 ...

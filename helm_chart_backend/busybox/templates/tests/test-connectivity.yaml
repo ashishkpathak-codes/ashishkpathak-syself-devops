@@ -1,0 +1,19 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "busybox.fullName" . }}-test
+  labels:
+    {{ include "busybox.labels" .| nindent 4 }}
+  annotations:
+    helm.sh/hook: test
+spec:
+  template:
+    spec:
+      containers:
+        - name: {{ include "busybox.name" . }}-test
+          image: "{{ .Values.image.registry }}/{{ .Chart.Name }}:{{ .Values.image.tag }}"
+          command: [ "wget"]
+          args: [{{ include "busybox.fullName" . }}.{{ .Release.Namespace }}.svc.cluster.local]
+      restartPolicy: Never
+  backoffLimit: {{ .Values.tests.backoffLimit }}

@@ -8,5 +8,6 @@
 
 {{- define "busybox.labels" -}}
 app: {{ include "busybox.name" . }}
+release: {{ include "busybox.fullName" . }}
 type: "backend"
 {{- end -}}
