@@ -74,10 +74,10 @@ Data network will be reachable from both Producer and Consumer team.
 ## Security
 
 - Create Roles for consumers. Example: exec, read-only, read-write etc
+- Network Policy can be defined to avoid cross namespace traffic considering multiple Consumers would be using the same cluster to run their applications on their namespace.
 
-## Cluster Accessibility.
+## Cluster Accessibility
 
 - As part of consumer onboarding, Producer team can create a kubeconfig file for Consumer based on the type of access needed by creating a rolebinding to bind the role to user account and generating a kubeconfig file which will be shared to the user. This approach is not good and as the consumer increases it would be better to use an [identity provider].
 - kubeconfig will be used in Consumer Jumphost to access the k8s cluster.
-
 
