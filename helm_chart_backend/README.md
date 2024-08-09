@@ -23,14 +23,23 @@ Install [busybox](./busybox) chart on namespace bar as foo
 helm install bar busybox -n foo
 ```
 
+Install [busybox](./busybox) chart with 3 replicas of busybox application.
+```sh
+helm install busybox --generate-name --set replicaCount=3
+```
+
+## Test
+
 Run test after installation
 ```sh
 helm test bar -n foo
 ```
 
-Install [busybox](./busybox) chart with 3 replicas of busybox application.
+## Uninstallation
+
+Uninstall a release
 ```sh
-helm install busybox --generate-name --set replicaCount=3
+helm uninstall <releaseName>
 ```
 
 # Database Considerations
@@ -45,7 +54,9 @@ There are some options:
 - Database should be prod ready.
 - Database should be cost effective.
 
-Since we are considering for production, it would be recommended to approach the Managed database service which provides features like backup, patching and scaling. Once we have it up and running, we can plan the below to reduce the cost since running on Public Cloud for a longer time incurrs higher cost and provided Enterprise has a Private Cloud:
+## Approach
+
+Since we are considering for production and above [Factors](#factors), it would be recommended to start with the Managed database service which provides features like backup, patching and scaling. Once we have it up and running, we can plan the below to reduce the cost since running on Public Cloud for a longer time incurrs higher cost and provided Enterprise has a Private Cloud:
 
 - Check for features like sharding, failover elections and replication provided by Database. If so, then hosting deployment on kubernetes may be a choice and if not standlone VM based deployment would be a choice.
 - Check for team proficiency in database administration from operations point of view.
